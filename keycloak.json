@@ -1,8 +1,8 @@
 {
-  "realm": "test",
+  "realm": "master",
   "auth-server-url": "https://app.phasetwo.io/auth/",
   "ssl-required": "external",
-  "resource": "test",
+  "resource": "security-admin-console-v2",
   "public-client": true,
   "confidential-port": 0
 }

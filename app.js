@@ -15,6 +15,7 @@ window.onload = function () {
 
       if (keycloak.authenticated) {
         showProfile();
+	callOrgs();
       } else {
         welcome();
       }
@@ -27,6 +28,21 @@ window.onload = function () {
 
 function welcome() {
   show('welcome');
+}
+
+async function callOrgs() {
+  const url = keycloakUrl + "/realms/adminui/orgs";
+  const resp = await fetch( url, {
+    method: 'GET', // *GET, POST, PUT, DELETE, etc.
+    mode: 'cors', // no-cors, *cors, same-origin
+    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+    headers: {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + keycloak.token
+    },
+    redirect: 'follow', // manual, *follow, error
+  });
+  console.log(resp.json()); // parses JSON response into native JavaScript objects
 }
 
 function showProfile() {
