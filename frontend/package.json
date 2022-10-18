@@ -1,0 +1,10 @@
+{
+  "name": "keycloak-example-frontend",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "http-server -c-1 -p 3001"
+  },
+  "dependencies": {
+    "http-server": "^14.1.1"
+  }
+}
