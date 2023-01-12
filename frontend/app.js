@@ -72,11 +72,20 @@ function showIdToken() {
   show('token');
 }
 
+function showUserinfo() {
+  keycloak.loadUserInfo()
+    .then(function(profile) {
+      document.getElementById('token-content').innerHTML = JSON.stringify(profile, null, '    ');
+      show('token');
+    }).catch(function() {
+      alert('Failed to load user profile');
+    });
+}
+
 function show(id) {
   document.getElementById('welcome').style.display = 'none';
   document.getElementById('profile').style.display = 'none';
   document.getElementById('token').style.display = 'none';
-  document.getElementById('idToken').style.display = 'none';
   document.getElementById(id).style.display = 'block';
 }
 
