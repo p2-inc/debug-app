@@ -2,4 +2,6 @@
 
 A simple demonstration of protecting a frontend and backend app using Keycloak.
 
-Base on the article: https://phasetwo.io/blog/securing-apps-with-keycloak
+Used with these articles:
+- https://phasetwo.io/blog/securing-apps-with-keycloak
+- https://phasetwo.io/blog/sso-setup
