@@ -25,21 +25,12 @@ window.onload = function () {
   keycloak.onAuthLogout = welcome;
 };
 
-function welcome() {
-  show('welcome');
+function portal() {
+  window.location.href = keycloak.createAccountUrl({}).replace('account', 'portal');
 }
 
-function callBackend() {
-  var req = new XMLHttpRequest();
-  req.open('GET', 'http://localhost:3002/secured', true);
-  req.setRequestHeader('Accept', 'application/json');
-  req.setRequestHeader('Authorization', 'Bearer ' + keycloak.token);
-  req.onreadystatechange = function() {
-    if (req.readyState === 4) {
-      alert(req.responseText);
-    }
-  }
-  req.send();
+function welcome() {
+  show('welcome');
 }
 
 function showProfile() {
