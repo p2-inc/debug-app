@@ -11,7 +11,7 @@ window.onload = function () {
   window.keycloak = new Keycloak();
 
   keycloak.init({onLoad: 'login-required', scope:'openid email profile', checkLoginIframe: false, checkLoginIframeInterval: 1, pkceMethod: 'S256'})
-    .success(function () {
+    .then(function () {
 
       if (keycloak.authenticated) {
         showProfile();
