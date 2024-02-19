@@ -11,7 +11,7 @@ window.onload = function () {
   window.keycloak = new Keycloak();
 
   keycloak.init({onLoad: 'login-required', scope:'openid email profile', checkLoginIframe: false, checkLoginIframeInterval: 1, pkceMethod: 'S256'})
-    .success(function () {
+    .then(function () {
 
       if (keycloak.authenticated) {
         showProfile();
@@ -24,6 +24,15 @@ window.onload = function () {
 
   keycloak.onAuthLogout = welcome;
 };
+
+function doLogout() {
+  var kc = window.keycloak;
+  var url = kc.endpoints.logout() + '?client_id=' + encodeURIComponent(kc.clientId) + '&post_logout_redirect_uri=' + encodeURIComponent(kc.createLoginUrl());
+  if (kc.idToken) {
+    url += '&id_token_hint=' + encodeURIComponent(kc.idToken);
+  }
+  window.location.replace(url);
+}
 
 function portal() {
   window.location.href = keycloak.createAccountUrl({}).replace('account', 'portal');
