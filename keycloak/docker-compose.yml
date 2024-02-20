@@ -15,7 +15,7 @@ services:
     ports:
       - 26257:26257
   keycloak:
-    image: quay.io/phasetwo/phasetwo-cluster:23.0.6.1708355646
+    image: quay.io/phasetwo/phasetwo-cluster:23.0.6.1708456352
     environment:
       KC_DB: cockroach
       KC_HTTP_RELATIVE_PATH: /auth
