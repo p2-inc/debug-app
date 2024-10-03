@@ -1,0 +1,10 @@
+{
+  "realm": "later-development",
+  "auth-server-url": "https://auth.later.com/auth/",
+  "ssl-required": "external",
+  "resource": "s4",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}

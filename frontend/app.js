@@ -1,4 +1,4 @@
-let keycloakUrl = "https://app.phasetwo.io/auth"
+let keycloakUrl = "https://auth.later.com/auth"
 
 var script = document.createElement('script');
 script.type = 'text/javascript';
@@ -10,24 +10,43 @@ window.onload = function () {
 
   window.keycloak = new Keycloak();
 
-  keycloak.init({onLoad: 'login-required', scope:'openid email profile', checkLoginIframe: false, checkLoginIframeInterval: 1, pkceMethod: 'S256'})
+  keycloak.init({onLoad: 'login-required', enableLogging: true, checkLoginIframe: false, pkceMethod: 'S256'})
     .then(function () {
-
       if (keycloak.authenticated) {
         showProfile();
       } else {
         welcome();
       }
-
       document.body.style.display = 'block';
     });
 
   keycloak.onAuthLogout = welcome;
-};
 
-function portal() {
-  window.location.href = keycloak.createAccountUrl({}).replace('account', 'portal');
-}
+  var intervalId0 = setInterval(function() {
+    keycloak.loadUserInfo()
+      .then(function(profile) {
+	console.log("Loaded user info", profile);
+    }).catch(function() {
+      console.log('Failed to load user profile');
+    });
+    console.log("userinfo interval reached every 60s")
+  }, 60000);
+    
+  
+  var intervalId1 = setInterval(function() {
+    var exp = keycloak.isTokenExpired(240);
+    if (exp) {
+      console.log("Token expired. Calling refresh...");
+      keycloak.updateToken(240).then(function(refreshed) {
+	console.log(refreshed ? 'Token was refreshed' : 'Token is still valid');
+      }).catch(function(error) {
+	console.error('Failed to refresh the token:', error);
+      }); 
+    }
+    console.log("refresh interval reached every 240s")
+  }, 240000);
+
+};
 
 function welcome() {
   show('welcome');
